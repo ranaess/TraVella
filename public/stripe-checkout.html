@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stripe Checkout (Demo)</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f6f9fc;
+    }
+
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .left {
+      flex: 1;
+      background-color: #fff;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-right: 1px solid #ddd;
+    }
+
+    .left h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .left .price {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .left .desc {
+      font-size: 16px;
+      color: #666;
+    }
+
+    .sandbox {
+      background-color: #e6f0ff;
+      color: #003366;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .right {
+      flex: 1;
+      background-color: #fff;
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .btn-link {
+      background-color: #00d26a;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-bottom: 30px;
+      cursor: pointer;
+    }
+
+    .divider {
+      text-align: center;
+      margin: 20px 0;
+      color: #888;
+    }
+
+    input, select {
+      padding: 10px;
+      margin-bottom: 16px;
+      font-size: 15px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .save-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .save-info input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .pay-btn {
+      background-color: #0070f3;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .pay-btn:hover {
+      background-color: #005fd1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <div class="sandbox">🔷 project sandbox</div>
+      <h1>Hotel</h1>
+      <div class="price">US$1.00</div>
+      <div class="desc">Booking service: Hotel</div>
+    </div>
+
+    <div class="right">
+      <button class="btn-link">Pay with <b>link</b></button>
+
+      <div class="divider">— Or —</div>
+
+      <form>
+        <label>Email</label>
+        <input type="email" placeholder="email@example.com" required />
+
+        <label>Card information</label>
+        <input type="text" placeholder="1234 1234 1234 1234" maxlength="19" required />
+        <input type="text" placeholder="MM / YY" maxlength="7" required />
+        <input type="text" placeholder="CVC" maxlength="4" required />
+
+        <label>Cardholder name</label>
+        <input type="text" placeholder="Full name on card" required />
+
+        <label>Country or region</label>
+        <select>
+          <option>Egypt</option>
+          <option>USA</option>
+          <option>UK</option>
+          <option>UAE</option>
+        </select>
+
+        <div class="save-info">
+          <input type="checkbox" />
+          <label>Save my information for faster checkout</label>
+        </div>
+
+        <button class="pay-btn" type="button" onclick="alert('✅ Payment successful (Demo)')">Pay</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    // Parse query parameters
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name") || "Service";
+    const amount = params.get("amount") || "100";
+
+    // Convert cents to dollars
+    const usdAmount = (parseInt(amount) / 100).toFixed(2);
+
+    // Insert values into the page
+    document.getElementById("service-name").textContent = name;
+    document.getElementById("price").textContent = `US$${usdAmount}`;
+    document.getElementById("description").textContent = `Booking service: ${name}`;
+
+    // Dummy payment simulation
+    function completePayment() {
+      alert("✅ Payment successful!\nThank you for booking " + name);
+      window.location.href = "/"; // redirect to home or success page
+    }
+  </script>
+</body>
+</html>
