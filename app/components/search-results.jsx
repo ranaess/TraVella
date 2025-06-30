@@ -62,6 +62,9 @@ export default function SearchResults({
     }
   }
 
+  let uniqueResults = results
+
+if (searchType === "hotel") {
   const nameMap = new Map()
   for (const item of results) {
     const key = item.name?.toLowerCase()
@@ -78,11 +81,9 @@ export default function SearchResults({
       }
     }
   }
-  const uniqueResults = Array.from(nameMap.values())
+  uniqueResults = Array.from(nameMap.values())
+}
 
-  const sortedResults = [...uniqueResults].sort((a, b) => {
-    return (b.rating || b.rate || 0) - (a.rating || a.rate || 0)
-  })
 
   const filteredResults = sortedResults.filter((result) => {
     if (filterBy.minPrice && result.price < Number.parseFloat(filterBy.minPrice)) return false
@@ -346,23 +347,12 @@ const handleFlightPayment = async (flight) => {
   >
     <div className="form-group">
       <label>Min Price Per Night</label>
-      <select name="minPricePerNight" value={filterBy.minPricePerNight} onChange={handleChange}>
-        <option value="">Any</option>
-        <option value="1000-3000">1000 - 3000 EGP</option>
-        <option value="3000-5000">3000 - 5000 EGP</option>
-        <option value="5000-7000">5000 - 7000 EGP</option>
-      </select>
+      <input type="text" name="minPricePerNight" value={filterBy.minPricePerNight} onChange={handleChange} />
     </div>
 
     <div className="form-group">
-      <label>Max Price Per Night</label>
-      <select name="maxPricePerNight" value={filterBy.maxPricePerNight} onChange={handleChange}>
-        <option value="">Any</option>
-        <option value="7000-9000">7000 - 9000 EGP</option>
-        <option value="9000-11000">9000 - 11000 EGP</option>
-        <option value="11000-13000">11000 - 13000 EGP</option>
-        <option value="13000+">13000+ EGP</option>
-      </select>
+      <label>Max Price</label>
+      <input type="text" name="maxPricePerNight" value={filterBy.maxPricePerNight} onChange={handleChange} />
     </div>
 
     <div className="form-group">
@@ -455,29 +445,12 @@ const handleFlightPayment = async (flight) => {
   >
     <div className="form-group">
       <label>Min Price</label>
-      <select name="minPrice" value={filterBy.minPrice} onChange={handleChange}>
-        <option value="">Any</option>
-        <option value="100-300">100 - 300 EGP</option>
-        <option value="300-500">300 - 500 EGP</option>
-        <option value="500-700">500 - 700 EGP</option>
-        <option value="700-900">700 - 900 EGP</option>
-        <option value="900-1100">900 - 1100 EGP</option>
-        <option value="1100-1300">1100 - 1300 EGP</option>
-      </select>
+      <input type="text" name="minPrice" value={filterBy.minPrice} onChange={handleChange} />
     </div>
 
     <div className="form-group">
       <label>Max Price</label>
-      <select name="maxPrice" value={filterBy.maxPrice} onChange={handleChange}>
-        <option value="">Any</option>
-        <option value="1300-1500">1300 - 1500 EGP</option>
-        <option value="1500-1700">1500 - 1700 EGP</option>
-        <option value="1700-1900">1700 - 1900 EGP</option>
-        <option value="1900-2100">1900 - 2100 EGP</option>
-        <option value="2100-2300">2100 - 2300 EGP</option>
-        <option value="2300-2500">2300 - 2500 EGP</option>
-        <option value="2500+">2500+ EGP</option>
-      </select>
+      <input type="text" name="maxPrice" value={filterBy.maxPrice} onChange={handleChange} />
     </div>
 
     <div className="form-group">
@@ -538,26 +511,12 @@ marginBottom: "12px",
 >
 <div className="form-group">
 <label>Min Price</label>
-<select name="minPrice" value={filterBy.minPrice} onChange={handleChange}>
-<option value="">Any</option>
-<option value="200-400">200 - 400 EGP</option>
-<option value="400-600">400 - 600 EGP</option>
-<option value="600-800">600 - 800 EGP</option>
-<option value="800-1000">800 - 1000 EGP</option>
-</select>
+<input type="text" name="minPrice" value={filterBy.minPrice} onChange={handleChange} />
 </div>
 
 <div className="form-group">
 <label>Max Price</label>
-<select name="maxPrice" value={filterBy.maxPrice} onChange={handleChange}>
-<option value="">Any</option>
-<option value="1000-1200">1000 - 1200 EGP</option>
-<option value="1200-1400">1200 - 1400 EGP</option>
-<option value="1400-1600">1400 - 1600 EGP</option>
-<option value="1600-1800">1600 - 1800 EGP</option>
-<option value="1800-2000">1800 - 2000 EGP</option>
-<option value="2000+">2000+ EGP</option>
-</select>
+<input type="text" name="maxPrice" value={filterBy.maxPrice} onChange={handleChange} />
 </div>
 
 <div className="form-group">
@@ -671,26 +630,12 @@ marginBottom: "12px",
 >
 <div className="form-group">
 <label>Min Price</label>
-<select name="minPrice" value={filterBy.minPrice} onChange={handleChange}>
-<option value="">Any</option>
-<option value="50-100">50 - 100 EGP</option>
-<option value="100-150">100 - 150 EGP</option>
-<option value="150-200">150 - 200 EGP</option>
-<option value="200-250">200 - 250 EGP</option>
-</select>
+<input type="text" name="minPrice" value={filterBy.minPrice} onChange={handleChange} />
 </div>
 
 <div className="form-group">
-<label>Max Price</label>
-<select name="maxPrice" value={filterBy.maxPrice} onChange={handleChange}>
-<option value="">Any</option>
-<option value="250-300">250 - 300 EGP</option>
-<option value="300-350">300 - 350 EGP</option>
-<option value="350-400">350 - 400 EGP</option>
-<option value="400-450">400 - 450 EGP</option>
-<option value="450-500">450 - 500 EGP</option>
-<option value="500+">500+ EGP</option>
-</select>
+  <label>Max Price</label>
+  <input type="text" name="maxPrice" value={filterBy.maxPrice} onChange={handleChange} />
 </div>
 
 <div className="form-group">

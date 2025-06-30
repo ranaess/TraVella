@@ -218,19 +218,6 @@ export default function TaxiBooking({ onSearchResults, onAuthRequired }) {
               required
             />
           </div>
-
-          <div className="form-group">
-            <label htmlFor="dropOffLocation">Drop-off Location</label>
-            <input
-              type="text"
-              id="dropOffLocation"
-              name="dropOffLocation"
-              value={formData.dropOffLocation}
-              onChange={handleChange}
-              placeholder="Enter destination"
-              required
-            />
-          </div>
         </div>
 
         <div className="form-group">

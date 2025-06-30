@@ -132,6 +132,8 @@ export default function UserProfile({ user, onUserUpdate }) {
     }
   }
 
+  
+
   return (
     <section className="user-profile">
       <div className="profile-container">

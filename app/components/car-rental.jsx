@@ -70,11 +70,11 @@ export default function CarRental({ onSearchResults, onAuthRequired }) {
     setError(null)
 
     try {
-      if (!formData.pickupDate || !formData.pickupTime) {
-        throw new Error("Please provide both date and time.")
+      if (!formData.pickupDate) {
+        throw new Error("Please provide both date.")
       }
 
-      const isoDate = new Date(`${formData.pickupDate}T${formData.pickupTime}`).toISOString()
+      const isoDate = new Date(formData.pickupDate).toISOString().split("T")[0]
 
       const searchParams = {
         pickUpLocation: formData.pickupLocation,
@@ -176,7 +176,6 @@ export default function CarRental({ onSearchResults, onAuthRequired }) {
 
   const handleBookCar = async (carId) => {
     if (!authService.isAuthenticated()) {
-      alert("Please log in to book a car. You will be redirected to the login page.")
       if (onAuthRequired) {
         onAuthRequired()
       }
@@ -237,26 +236,14 @@ export default function CarRental({ onSearchResults, onAuthRequired }) {
               required
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="pickupTime">Pick-up Time</label>
-            <input
-              type="time"
-              id="pickupTime"
-              name="pickupTime"
-              value={formData.pickupTime}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
+         </div>
 
         <div className="form-row">
           <div className="form-group">
             <label htmlFor="rentType">Rent Type</label>
             <select id="rentType" name="rentType" value={formData.rentType} onChange={handleChange}>
-              <option value="">Daily</option>
-              <option value="weekly">Weekly</option>
-              <option value="monthly">Monthly</option>
+              <option value="with driver">With Driver</option>
+              <option value="without driver">Without Driver</option>
             </select>
           </div>
         </div>
